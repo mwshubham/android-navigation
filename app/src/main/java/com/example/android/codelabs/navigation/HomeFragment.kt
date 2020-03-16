@@ -20,7 +20,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 
@@ -52,7 +51,11 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.flow_step_one_dest, null, options)
         }
 
-        view.findViewById<Button>(R.id.navigate_action_button)?.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.next_action, null))
+        view.findViewById<Button>(R.id.navigate_action_button)?.setOnClickListener {
+            val flowStepNumberArg = 1
+            val action = HomeFragmentDirections.nextAction(flowStepNumberArg)
+            findNavController().navigate(action)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
