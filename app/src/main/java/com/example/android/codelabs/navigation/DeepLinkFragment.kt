@@ -30,6 +30,7 @@ import android.widget.TextView
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 
 /**
  * Fragment used to show how to deep link to a destination
@@ -46,14 +47,17 @@ class DeepLinkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val safeArgs: DeepLinkFragmentArgs by navArgs()
+        val myarg = safeArgs.myarg
+
         val textView = view.findViewById<TextView>(R.id.text)
-        textView.text = arguments?.getString("myarg")
+        textView.text = myarg
 
         val notificationButton = view.findViewById<Button>(R.id.send_notification_button)
         notificationButton.setOnClickListener {
             val editArgs = view.findViewById<EditText>(R.id.args_edit_text)
             val args = Bundle()
-            args.putString("myarg", editArgs.getText().toString())
+            args.putString("myarg", editArgs.text.toString())
 
             val deeplink = findNavController().createDeepLink()
                     .setDestination(R.id.deeplink_dest)
@@ -63,8 +67,7 @@ class DeepLinkFragment : Fragment() {
             val notificationManager =
                     context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                notificationManager.createNotificationChannel(NotificationChannel(
-                        "deeplink", "Deep Links", NotificationManager.IMPORTANCE_HIGH))
+                notificationManager.createNotificationChannel(NotificationChannel("deeplink", "Deep Links", NotificationManager.IMPORTANCE_HIGH))
             }
 
             val builder = NotificationCompat.Builder(
