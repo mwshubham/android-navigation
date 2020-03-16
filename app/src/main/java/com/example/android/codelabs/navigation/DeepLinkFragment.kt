@@ -34,6 +34,8 @@ import androidx.navigation.fragment.navArgs
 
 /**
  * Fragment used to show how to deep link to a destination
+ *
+ * adb shell am start -a android.intent.action.VIEW -d "http://www.example.com/urlTest"
  */
 class DeepLinkFragment : Fragment() {
     override fun onCreateView(
