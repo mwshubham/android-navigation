@@ -81,4 +81,10 @@
         android:label="@string/settings"
         tools:layout="@layout/settings_fragment" />
 
+    <fragment
+        android:id="@+id/shopping_dest"
+        android:name="com.example.android.codelabs.navigation.ShoppingFragment"
+        android:label="@string/shopping"
+        tools:layout="@layout/shopping_fragment" />
+
 </navigation>
